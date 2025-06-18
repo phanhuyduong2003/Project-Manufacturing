@@ -2,7 +2,8 @@ import { ThemeConfig } from "antd";
 
 const themes: ThemeConfig = {
   token: {
-    fontFamily: '"SF Pro Text", sans-serif',
+    fontFamily: '"SF Pro", sans-serif',
+    lineHeight: 1.4,
   },
 };
 
