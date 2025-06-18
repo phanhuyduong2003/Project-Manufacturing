@@ -8,38 +8,12 @@ html {
   scroll-behavior: smooth;
 }
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Light.ttf");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Regular.ttf");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Medium.ttf");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Semibold.ttf");
-  font-weight: 600;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Bold.ttf");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "SF Pro Text";
-  src: url("@/assets/fonts/SFProText-Heavy.ttf");
-  font-weight: 800;
+  font-family: "SF Pro";
+  src: url("../fonts/SFNS.woff2");
 }
 body {
   scrollbar-width: thin;
-  font-family: "SF Pro Text", sans-serif;
+  font-family: "SF Pro", sans-serif;
   @include set_font(14px, 400, 1.4);
   &.hidden {
     overflow: hidden;
