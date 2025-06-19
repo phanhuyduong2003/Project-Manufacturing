@@ -1,0 +1,52 @@
+@use "mixin" as *;
+.default-layout {
+  min-height: 100vh;
+  .sidebar-layout {
+    padding: 15px 6px 0;
+    border-right: 1px solid #eceef1;
+    box-shadow: 0px 4px 8px 0px rgba(47, 49, 54, 0.1);
+    .sidebar-info {
+      padding-inline: 12px 3px;
+      .sidebar-info-avatar {
+        width: 37px;
+        height: 37px;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .sidebar-info-name {
+        @include set_font(14px, 600);
+        color: #18202a;
+      }
+      .sidebar-info-role {
+        @include set_font(12px, 400);
+        color: #73787e;
+      }
+    }
+    .sidebar-header {
+      padding: 8px 12px;
+      @include set_font(12px, 600, 1.3);
+      color: #73787e;
+    }
+    .sidebar-menu {
+      height: 100%;
+      border: 0;
+      .ant-menu-item,
+      .ant-menu-submenu {
+        @include flex(flex-start, center);
+        .pm-icon {
+          color: #73787e;
+        }
+      }
+      .ant-menu-item-selected {
+        border-left: 4px solid #28526e;
+        @include set_font(14px, 600, 1.4);
+        .pm-icon {
+          color: inherit;
+        }
+      }
+    }
+  }
+  .content-layout {
+    padding: 27px;
+  }
+}
