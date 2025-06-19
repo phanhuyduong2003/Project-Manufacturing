@@ -3,5 +3,8 @@
 @use "reset";
 @use "mixin";
 @use "setting";
+@use "common";
+@use "layout";
 // Styles of pages
 @use "login";
+@use "product";

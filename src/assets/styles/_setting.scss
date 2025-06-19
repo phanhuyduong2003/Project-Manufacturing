@@ -39,9 +39,9 @@ textarea {
   margin: 0;
   outline: 0;
   font-family: inherit;
-  @include set_font($weight: 200);
+  @include set_font($weight: 400);
   &::placeholder {
-    @include set_font($weight: 200);
+    @include set_font($weight: 400);
   }
   &:-webkit-autofill {
     -webkit-background-clip: text;

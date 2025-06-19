@@ -1,0 +1,12 @@
+@use "mixin" as *;
+.btn-primary {
+  background: var(--btn-primary);
+  &:not(:disabled):not(.ant-btn-disabled) {
+    &:hover {
+      background: var(--btn-primary-hover);
+    }
+  }
+}
+.pm-icon {
+  @include flex(center, center);
+}
