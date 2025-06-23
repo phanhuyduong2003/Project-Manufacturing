@@ -1,6 +1,8 @@
 import { Button, Empty, Typography } from "antd";
+import { Link } from "react-router";
 
 import images from "@/assets/images";
+import paths from "@/config/paths";
 
 export const EmptyProduct = () => {
   return (
@@ -19,9 +21,11 @@ export const EmptyProduct = () => {
       }
       image={images.empty}
     >
-      <Button className="btn-primary" size="large" type="primary">
-        Thêm sản phẩm
-      </Button>
+      <Link to={paths.productCreate}>
+        <Button className="btn-primary" size="large" type="primary">
+          Thêm sản phẩm
+        </Button>
+      </Link>
     </Empty>
   );
 };

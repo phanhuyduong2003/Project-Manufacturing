@@ -7,6 +7,12 @@
     }
   }
 }
+.btn-link-primary {
+  color: var(--btn-primary);
+  &:hover {
+    color: var(--btn-primary-hover);
+  }
+}
 .pm-icon {
   @include flex(center, center);
 }

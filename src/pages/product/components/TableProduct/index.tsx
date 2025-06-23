@@ -2,8 +2,10 @@ import { DatePicker, Empty, Flex, Input, Select, Switch, Table, TableProps } fro
 import { DefaultOptionType } from "antd/es/select";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { generatePath, Link } from "react-router";
 
 import { Pencil, Search } from "@/assets/icons";
+import paths from "@/config/paths";
 
 export const TableProduct = () => {
   const [hasData, setHasData] = useState<boolean>(true);
@@ -42,10 +44,12 @@ export const TableProduct = () => {
       title: "Người tạo",
       dataIndex: "createdBy",
       key: "createdBy",
-      render: (text) => (
+      render: (text, record) => (
         <Flex justify="space-between">
           <span>{text}</span>
-          <Pencil />
+          <Link state={{ data: record }} to={generatePath(paths.productDetail, { id: record.key })}>
+            <Pencil />
+          </Link>
         </Flex>
       ),
     },
