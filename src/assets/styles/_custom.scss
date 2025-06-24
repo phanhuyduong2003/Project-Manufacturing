@@ -1,0 +1,14 @@
+/* Custom Ant Design Only */
+.ant-table-wrapper {
+  &.border-outline {
+    .ant-table {
+      border: 1px solid #dadde1;
+      border-radius: 8px;
+    }
+  }
+  &.footer-transparent {
+    .ant-table-footer {
+      background-color: transparent;
+    }
+  }
+}

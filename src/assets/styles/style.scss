@@ -5,6 +5,8 @@
 @use "setting";
 @use "common";
 @use "layout";
+@use "custom";
 // Styles of pages
-@use "login";
-@use "product";
+@use "pages/login";
+@use "pages/product";
+@use "pages/formula";
