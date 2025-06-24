@@ -1,17 +1,15 @@
 import { Button, Flex, Form, Input, Radio, Select, Table, TableProps, Tabs, TabsProps, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation } from "react-router";
 
-import { ArrowLeft, Pencil, Search } from "@/assets/icons";
+import { Pencil, Search } from "@/assets/icons";
+import { Header } from "@/components/Header";
 import paths from "@/config/paths";
 
-export const ProductForm = ({ isEdit = false }: { isEdit?: boolean }) => {
+export const FormProduct = ({ isEdit = false }: { isEdit?: boolean }) => {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const { data } = useLocation().state || {};
-
-  console.log("state", data);
 
   useEffect(() => {
     if (isEdit && data) {
@@ -232,7 +230,7 @@ export const ProductForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             columns={formulaColumns}
             dataSource={formulaData}
             footer={() => (
-              <Link className="btn-link-primary" to="/#">
+              <Link className="btn-link-primary" to={paths.formula}>
                 + Thêm mới công thức
               </Link>
             )}
@@ -249,13 +247,10 @@ export const ProductForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
   return (
     <div className="wrapper product-form">
-      <Flex align="center" className="product-form-header" gap={16}>
-        <button className="product-form-header-back" onClick={() => navigate(-1)}>
-          <ArrowLeft size={20} />
-        </button>
-        <h1 className="product-form-header-title">Chi tiết sản phẩm</h1>
-      </Flex>
-      <Tabs className="product-form-tab" items={productTabItems} />
+      <div className="content">
+        <Header title="Chi tiết sản phẩm" />
+        <Tabs className="product-form-tab" items={productTabItems} />
+      </div>
     </div>
   );
 };
