@@ -1,6 +1,6 @@
 import paths from "@/config/paths";
 import DefaultLayout from "@/layouts/DefaultLayout";
-import { Login, Product, ProductCreate, ProductDetail } from "@/pages";
+import { Formula, Login, Product, ProductCreate, ProductDetail } from "@/pages";
 import { RouteType } from "@/types/routes";
 
 export const privateRoutes: RouteType[] = [
@@ -17,6 +17,11 @@ export const privateRoutes: RouteType[] = [
   {
     path: paths.productDetail,
     component: ProductDetail,
+    layout: DefaultLayout,
+  },
+  {
+    path: paths.formula,
+    component: Formula,
     layout: DefaultLayout,
   },
 ];

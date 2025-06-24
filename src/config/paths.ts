@@ -3,6 +3,7 @@ const paths = {
   product: "/product",
   productDetail: "/product/:id",
   productCreate: "/product/create",
+  formula: "/formula",
   home: "/",
 };
 

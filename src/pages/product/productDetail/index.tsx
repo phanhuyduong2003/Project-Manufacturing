@@ -1,5 +1,5 @@
-import { ProductForm } from "@/pages/product/components";
+import { FormProduct } from "@/pages/product/components";
 
 export const ProductDetail = () => {
-  return <ProductForm isEdit />;
+  return <FormProduct isEdit />;
 };
