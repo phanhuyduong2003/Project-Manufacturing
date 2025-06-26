@@ -413,13 +413,13 @@ export const Formula = () => {
 
   return (
     <>
-      <div className="wrapper formula">
-        <div className="content">
+      <div className="wrapper formula create-common">
+        <div className="content has-footer">
           <Header title="Tạo công thức" />
           <Tabs items={formulaTabItems} onChange={(key) => setCurrentTab(key as "detail" | "history")} />
         </div>
         {currentTab === "detail" && (
-          <Flex className="formula-detail-footer" gap={12} justify="end">
+          <Flex className="formula-detail-footer create-common-footer" gap={12} justify="end">
             <Button
               color="green"
               icon={<CheckCircle size={20} viewBox="0 0 20 20" />}
@@ -475,7 +475,7 @@ export const Formula = () => {
         centered
         classNames={{
           wrapper: "formula-modal",
-          header: "formula-header",
+          header: "formula-header modal-header",
           content: "formula-content",
           footer: "formula-footer",
         }}
@@ -502,7 +502,7 @@ export const Formula = () => {
         centered
         classNames={{
           wrapper: "material-modal",
-          header: "material-header",
+          header: "material-header modal-header",
           content: "material-content",
           body: "material-body",
           footer: "material-footer",

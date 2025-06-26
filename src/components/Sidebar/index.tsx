@@ -1,4 +1,5 @@
 import { Flex, Layout, Menu, MenuProps } from "antd";
+import { useState } from "react";
 import { Link } from "react-router";
 
 import { ChevronDownCircle, PaperPlane, PersonStar, SubTask } from "@/assets/icons";
@@ -6,6 +7,9 @@ import images from "@/assets/images";
 import paths from "@/config/paths";
 
 export const Sidebar = () => {
+  const currentPath = window.location.pathname.split("/")[1];
+  const [currentKey, setCurrentKey] = useState<string>(currentPath || "");
+
   const items: MenuProps["items"] = [
     {
       key: "product",
@@ -19,21 +23,21 @@ export const Sidebar = () => {
       children: [
         {
           key: "declare-material",
-          label: <Link to={paths.home}>Khai báo nguyên vật liệu</Link>,
+          label: <Link to={paths.declareMaterial}>Khai báo nguyên vật liệu</Link>,
         },
         {
           key: "declare-category",
-          label: <Link to={paths.home}>Khai báo danh mục sản phẩm</Link>,
+          label: <Link to={paths.declareCategory}>Khai báo danh mục sản phẩm</Link>,
         },
         {
           key: "declare-customer",
-          label: <Link to={paths.home}>Khai báo khách hàng</Link>,
+          label: <Link to={paths.declareCustomer}>Khai báo khách hàng</Link>,
         },
       ],
     },
     {
       key: "account",
-      label: <Link to={paths.home}>Quản lý tài khoản</Link>,
+      label: <Link to={paths.account}>Quản lý tài khoản</Link>,
       icon: <PersonStar />,
     },
   ];
@@ -52,7 +56,7 @@ export const Sidebar = () => {
             </Flex>
           </Flex>
           <Flex align="center" justify="center">
-            <ChevronDownCircle size={20} />
+            <ChevronDownCircle size={20} viewBox="0 0 20 20" />
           </Flex>
         </Flex>
         <Flex gap={4} vertical>
@@ -60,8 +64,9 @@ export const Sidebar = () => {
           <Menu
             className="sidebar-menu"
             items={items}
+            onClick={(e) => setCurrentKey(e.key)}
             selectable={false}
-            selectedKeys={[window.location.pathname.split("/")[1] || ""]}
+            selectedKeys={[currentKey]}
             triggerSubMenuAction="click"
           />
         </Flex>

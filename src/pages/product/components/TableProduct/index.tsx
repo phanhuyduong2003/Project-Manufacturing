@@ -72,14 +72,14 @@ export const TableProduct = () => {
   ];
 
   return (
-    <Flex className="table-product" gap={6} vertical>
+    <Flex className="table-common" gap={6} vertical>
       <Flex gap={10}>
         <span>Có dữ liệu: </span>
         <Switch onChange={() => setHasData(!hasData)} value={hasData} />
       </Flex>
-      <Flex align="normal" className="table-filter" gap={8} wrap>
+      <Flex align="normal" className="table-filter-common" gap={8}>
         <DatePicker.RangePicker
-          className="table-filter-item"
+          className="table-filter-common-item"
           defaultValue={[dayjs(), dayjs().add(1, "month")]}
           format="D/M/YYYY"
           placeholder={["Bắt đầu", "Kết thúc"]}
@@ -91,19 +91,19 @@ export const TableProduct = () => {
           //   separator="-"
         />
         <Select
-          className="table-filter-item"
+          className="table-filter-common-item"
           defaultValue="pending"
           options={formulaStatus}
           prefix={<span className="prefix">Trạng thái công thức: </span>}
         />
         <Select
-          className="table-filter-item"
+          className="table-filter-common-item"
           defaultValue="active"
           options={productStatus}
           prefix={<span className="prefix">Trạng thái sản phẩm: </span>}
         />
         <Input
-          className="table-filter-item"
+          className="table-filter-common-item"
           placeholder="Tìm kiếm theo mã sản phẩm"
           prefix={<Search className="prefix" size={16} viewBox="0 0 28 28" />}
         />
