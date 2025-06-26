@@ -82,6 +82,9 @@
 .ant-switch {
   &.ant-switch-checked {
     background-color: var(--btn-primary);
+    &:hover:not(.ant-switch-disabled) {
+      background-color: var(--btn-primary-hover);
+    }
   }
   &.ant-switch-disabled {
     background-color: rgba(20, 33, 65, 6%);

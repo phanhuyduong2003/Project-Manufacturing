@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   Flex,
   Form,
   Input,
@@ -17,7 +18,23 @@ import {
 import dayjs from "dayjs";
 import { useState } from "react";
 
-import { Calendar, CheckCircle, Close, Copy, Info, Listing, Plus, Search, Trash } from "@/assets/icons";
+import {
+  ArrowRedo,
+  Calendar,
+  CheckCircle,
+  CheckmarkCircle,
+  ChevronRight,
+  Close,
+  Copy,
+  Info,
+  Listing,
+  PersonArrowRight,
+  Plus,
+  Search,
+  Ticket,
+  Trash,
+  XmarkCircle,
+} from "@/assets/icons";
 import { Header } from "@/components/Header";
 
 export const Formula = () => {
@@ -25,6 +42,7 @@ export const Formula = () => {
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [openFormula, setOpenFormula] = useState<boolean>(false);
   const [openMaterial, setOpenMaterial] = useState<boolean>(false);
+  const [openNote, setOpenNote] = useState<boolean>(false);
   const [materialSelected, setMaterialSelected] = useState<string[]>([]);
 
   const materialColumns: TableProps["columns"] = [
@@ -236,6 +254,56 @@ export const Formula = () => {
     },
   ];
 
+  const approvedHistory = [
+    {
+      id: 1,
+      name: "Hoangthanhnam",
+      date: "08:00 09/01/2024",
+      status: 0,
+      statusText: "đã từ chối yêu cầu",
+      note: "Công thức có độ chuẩn 90%",
+    },
+    {
+      id: 2,
+      name: "Linh Dang",
+      date: "08:00 09/01/2024",
+      status: 1,
+      statusText: "đã phê duyệt yêu cầu",
+      note: "Công thức có độ chuẩn 90%",
+    },
+    {
+      id: 3,
+      name: "QuangTV",
+      date: "08:00 09/01/2024",
+      status: 2,
+      statusText: "đã chuyển phê duyệt",
+      note: "",
+    },
+    {
+      id: 4,
+      name: "Hoangthanhnam",
+      date: "08:00 09/01/2024",
+      status: 3,
+      statusText: "đã thu hồi phê duyệt",
+      note: "Công thức có độ chuẩn 90%",
+    },
+    {
+      id: 5,
+      name: "Hoangthanhnam",
+      date: "08:00 09/01/2024",
+      status: 4,
+      statusText: "đã tạo yêu cầu",
+      note: "",
+    },
+  ];
+  const historyIcon = [
+    <XmarkCircle color="#e94040" size={20} />,
+    <CheckmarkCircle color="#3ab67b" size={20} />,
+    <PersonArrowRight color="#18202a" size={20} />,
+    <ArrowRedo color="#18202a" size={20} />,
+    <Ticket color="#18202a" size={20} />,
+  ];
+
   const formulaSetupTabItems: TabsProps["items"] = [
     {
       key: "material",
@@ -391,7 +459,34 @@ export const Formula = () => {
     {
       key: "history",
       label: "Lịch sử phê duyệt",
-      children: <div>Lịch sử phê duyệt</div>,
+      children: (
+        <Flex className="history-approved" gap={4} vertical>
+          <span className="history-approved-title">Lịch sử hoạt động</span>
+          <Flex className="history-approved-list" vertical>
+            {approvedHistory.map((item) => (
+              <>
+                <Flex className="history-approved-item" key={item.id} vertical>
+                  <Flex align="center" gap={16}>
+                    {historyIcon[item.status]}
+                    <Flex vertical>
+                      <div className="history-approved-item-title">
+                        <span className="history-approved-item-name">{item.name}</span>
+                        {` ${item.statusText}`}
+                      </div>
+                      <span className="history-approved-item-date">{item.date}</span>
+                    </Flex>
+                  </Flex>
+                  {item.note !== "" && (
+                    <Flex className="history-approved-item-note" gap={4} onClick={() => setOpenNote(true)}>
+                      Xem chi tiết <ChevronRight />
+                    </Flex>
+                  )}
+                </Flex>
+              </>
+            ))}
+          </Flex>
+        </Flex>
+      ),
       className: "formula-history",
     },
   ];
@@ -601,6 +696,26 @@ export const Formula = () => {
                 </List.Item>
               )}
             />
+          </Flex>
+        </Flex>
+      </Modal>
+      <Modal
+        centered
+        classNames={{ wrapper: "note-modal", content: "note-content", body: "note-body" }}
+        closeIcon={null}
+        footer={null}
+        onCancel={() => setOpenNote(false)}
+        open={openNote}
+      >
+        <Flex vertical>
+          <Flex gap={4} vertical>
+            <span className="note-title">Phê duyệt công thức</span>
+            <span>Rose Nguyen • 12:43 09/01/2024</span>
+          </Flex>
+          <Divider />
+          <Flex gap={8} vertical>
+            <span className="note-title">Ghi chú</span>
+            <p>Công thức có độ chuẩn 90%</p>
           </Flex>
         </Flex>
       </Modal>
