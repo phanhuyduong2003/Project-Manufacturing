@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { ReactNode, SVGProps } from "react";
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
@@ -13,4 +13,10 @@ export interface HeaderProps {
     icon?: string;
     title?: string;
   };
+}
+
+export interface EmptyProps {
+  description: string | ReactNode;
+  href: string;
+  buttonText: string;
 }

@@ -1,11 +1,5 @@
 @use "../mixin" as *;
 .wrapper.product {
-  .product-header {
-    .product-header-title {
-      @include set_font(24px, 600, 1.3);
-      color: #18202a;
-    }
-  }
   .no-product {
     .no-product-image {
       width: 300px;
@@ -21,59 +15,6 @@
     }
     .no-product-footer {
       margin-top: 24px;
-    }
-  }
-  .table-product {
-    .table-filter {
-      .table-filter-item {
-        width: calc((100% - 24px) / 4);
-        height: 100%;
-        align-items: center;
-        border-radius: 8px;
-        .prefix {
-          line-height: 1;
-          color: #737682;
-        }
-        .ant-picker-range-separator {
-          padding-inline: 2px;
-        }
-        &.ant-picker {
-          padding: 10px;
-          .ant-picker-prefix {
-            line-height: normal;
-          }
-          .ant-picker-input > input {
-            line-height: 1;
-          }
-        }
-        &.ant-select {
-          .ant-select-selector {
-            padding: 10px 5px;
-            border-radius: 8px;
-            &::after {
-              display: none;
-            }
-            .ant-select-prefix {
-              line-height: 1.2;
-            }
-            .ant-select-selection-wrap {
-              &::after {
-                display: none;
-              }
-              .ant-select-selection-item {
-                line-height: 1.2;
-              }
-            }
-          }
-        }
-        &.ant-input-affix-wrapper {
-          padding-block: 10px;
-          line-height: 1.2;
-          .ant-input {
-            line-height: 1.2;
-          }
-        }
-      }
     }
   }
 }

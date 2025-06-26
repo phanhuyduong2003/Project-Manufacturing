@@ -51,20 +51,20 @@
       }
     }
   }
-}
-.formula-detail-footer {
-  position: sticky;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  padding: 16px 24px;
-  border-top: 1px solid #dadde1;
-  background-color: #fff;
-  .ant-btn-color-green {
-    background-color: rgba(86, 202, 118, 0.16);
-    color: #3ab67b;
-    &:not(:disabled):not(.ant-btn-disabled):hover {
-      background-color: rgba(86, 202, 118, 0.24);
+  .formula-detail-footer {
+    position: sticky;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 16px 24px;
+    border-top: 1px solid #dadde1;
+    background-color: #fff;
+    .ant-btn-color-green {
+      background-color: rgba(86, 202, 118, 0.16);
+      color: #3ab67b;
+      &:not(:disabled):not(.ant-btn-disabled):hover {
+        background-color: rgba(86, 202, 118, 0.24);
+      }
     }
   }
 }
@@ -83,9 +83,6 @@
   }
 }
 .formula-modal {
-  .formula-header {
-    text-align: center;
-  }
   .formula-content {
     .formula-title {
       font-weight: 600;
@@ -97,9 +94,6 @@
   }
 }
 .material-modal {
-  .material-header {
-    text-align: center;
-  }
   .material-content {
     .material-body {
       padding-bottom: 16px;

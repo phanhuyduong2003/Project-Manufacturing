@@ -13,3 +13,4 @@ export * from "@/assets/icons/CheckCircle";
 export * from "@/assets/icons/Copy";
 export * from "@/assets/icons/Listing";
 export * from "@/assets/icons/Close";
+export * from "@/assets/icons/PlusCircle";

@@ -38,10 +38,22 @@
         }
       }
       .ant-menu-item-selected {
-        border-left: 4px solid #28526e;
+        border-left: 4px solid var(--btn-primary);
         @include set_font(14px, 600, 1.4);
         .pm-icon {
           color: inherit;
+        }
+      }
+      .ant-menu-submenu-selected {
+        .ant-menu-submenu-title {
+          @include flex(flex-start, center);
+          border-left: 4px solid var(--btn-primary);
+          @include set_font(14px, 600, 1.4);
+          background-color: #e6f4ff;
+          color: var(--btn-primary);
+          .pm-icon {
+            color: inherit;
+          }
         }
       }
     }
@@ -64,6 +76,9 @@
     .wrapper {
       .content {
         padding: 27px;
+        &.has-footer {
+          min-height: calc(100vh - 73px);
+        }
       }
     }
   }
