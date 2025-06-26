@@ -1,0 +1,18 @@
+@use "../mixin" as *;
+.wrapper.declare {
+  .tooltip-icon.ant-form-item-tooltip {
+    cursor: pointer;
+  }
+}
+.material-modal {
+  .material-modal-content {
+    .ant-input-outlined {
+      border-radius: 99px;
+    }
+  }
+  .material-modal-footer {
+    .create-button {
+      @include set_font(14px, 600, 1.4);
+    }
+  }
+}
