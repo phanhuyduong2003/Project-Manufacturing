@@ -1,12 +1,22 @@
 import { Button, Flex } from "antd";
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 import { Plus } from "@/assets/icons";
 import { EmptyCommon } from "@/components/Empty";
 import paths from "@/config/paths";
 import { TableProduct } from "@/pages/product/components";
+import { useAppDispatch } from "@/redux/hook";
+import { getProducts } from "@/redux/slices/productSlice";
 
 export const Product = () => {
+  const dispatch = useAppDispatch();
+  //   const productState = useAppSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
     <div className="wrapper product">
       <div className="content">

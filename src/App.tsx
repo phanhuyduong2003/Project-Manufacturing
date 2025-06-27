@@ -1,10 +1,11 @@
-import paths from "@/config/paths";
-import { privateRoutes, publicRoutes } from "@/routes";
-import { RouteType } from "@/types/routes";
 import { Button, Result, Spin } from "antd";
 import { Suspense } from "react";
 import { Link, Navigate, Route, Routes } from "react-router";
 import { Fragment } from "react/jsx-runtime";
+
+import paths from "@/config/paths";
+import { privateRoutes, publicRoutes } from "@/routes";
+import { RouteType } from "@/types/routes";
 
 function App() {
   const publicRoute = publicRoutes.map((route: RouteType) => {
@@ -13,13 +14,13 @@ function App() {
 
     return (
       <Route
-        key={route.path}
-        path={route.path}
         element={
           <Layout>
             <Page />
           </Layout>
         }
+        key={route.path}
+        path={route.path}
       />
     );
   });
@@ -30,13 +31,13 @@ function App() {
 
     return (
       <Route
-        key={route.path}
-        path={route.path}
         element={
           <Layout>
             <Page />
           </Layout>
         }
+        key={route.path}
+        path={route.path}
       />
     );
   });
@@ -45,7 +46,7 @@ function App() {
     <div className="App">
       <Suspense fallback={<Spin size="large" />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route element={<Navigate to="/product" />} path="/" />
           {publicRoute}
           {privateRoute}
           <Route
