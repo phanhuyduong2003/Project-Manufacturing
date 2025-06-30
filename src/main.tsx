@@ -11,6 +11,7 @@ import App from "@/App.tsx";
 import "@ant-design/v5-patch-for-react-19";
 
 import themes from "@/config/themes";
+import { MessageProvider } from "@/contexts/MessageContext/MessageProvider";
 import { store } from "@/redux/store";
 
 createRoot(document.getElementById("root")!).render(
@@ -18,7 +19,9 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <ConfigProvider locale={viVN} theme={themes}>
-          <App />
+          <MessageProvider>
+            <App />
+          </MessageProvider>
         </ConfigProvider>
       </BrowserRouter>
     </Provider>

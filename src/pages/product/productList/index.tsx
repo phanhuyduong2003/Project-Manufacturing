@@ -6,7 +6,7 @@ import { Plus } from "@/assets/icons";
 import { EmptyCommon } from "@/components/Empty";
 import paths from "@/config/paths";
 import { TableProduct } from "@/pages/product/components";
-import { useAppDispatch } from "@/redux/hook";
+import { useAppDispatch } from "@/redux/hooks";
 import { getProducts } from "@/redux/slices/productSlice";
 
 export const Product = () => {

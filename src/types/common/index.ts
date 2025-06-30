@@ -20,3 +20,12 @@ export interface EmptyProps {
   href: string;
   buttonText: string;
 }
+
+export interface ValuesFormAccount {
+  status: "apply" | "not_apply";
+  role: string[];
+  username: string;
+  name: string;
+  email: string;
+  password: string;
+}

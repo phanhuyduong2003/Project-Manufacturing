@@ -1,6 +1,5 @@
-import { Button, DatePicker, Empty, Flex, Input, Select, Switch, Table } from "antd";
+import { Button, DatePicker, Empty, Flex, Input, Select, Switch, Table, TableProps } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { TableProps } from "antd/lib";
 import dayjs from "dayjs";
 import { generatePath, Link } from "react-router";
 
@@ -87,6 +86,7 @@ export const Category = () => {
               <DatePicker.RangePicker
                 className="table-filter-common-item"
                 defaultValue={[dayjs(), dayjs().add(1, "month")]}
+                disabledDate={(current) => current > dayjs()}
                 format="D/M/YYYY"
                 placeholder={["Bắt đầu", "Kết thúc"]}
                 prefix={
