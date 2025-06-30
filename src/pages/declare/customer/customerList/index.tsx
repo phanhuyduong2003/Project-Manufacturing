@@ -85,7 +85,8 @@ export const Customer = () => {
             <Flex align="normal" className="table-filter-common" gap={8}>
               <DatePicker.RangePicker
                 className="table-filter-common-item"
-                defaultValue={[dayjs(), dayjs().add(1, "month")]}
+                defaultValue={[dayjs().subtract(1, "month"), dayjs()]}
+                disabledDate={(current) => current > dayjs()}
                 format="D/M/YYYY"
                 placeholder={["Bắt đầu", "Kết thúc"]}
                 prefix={
