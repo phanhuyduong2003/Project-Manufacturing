@@ -1,14 +1,23 @@
-import { Button, DatePicker, Empty, Flex, Input, Select, Switch, Table } from "antd";
+import { Button, DatePicker, Empty, Flex, Input, Select, Switch, Table, TableProps } from "antd";
 import { DefaultOptionType } from "antd/es/select";
-import { TableProps } from "antd/lib";
 import dayjs from "dayjs";
+import { useEffect } from "react";
 import { generatePath, Link } from "react-router";
 
 import { Pencil, Plus, Search } from "@/assets/icons";
 import { EmptyCommon } from "@/components/Empty";
 import paths from "@/config/paths";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getAccounts } from "@/redux/slices/accountSlice";
 
 export const Account = () => {
+  const dispatch = useAppDispatch();
+  const accountState = useAppSelector((state) => state.account);
+
+  useEffect(() => {
+    dispatch(getAccounts());
+  }, [dispatch]);
+
   const status: DefaultOptionType[] = [
     {
       label: "Tất cả",
@@ -53,23 +62,14 @@ export const Account = () => {
       ),
     },
   ];
-  const data = [
-    {
-      key: "1",
-      accountName: "PC 540A QM1013 VB01",
-      apply: true,
-      createdAt: "16-03-2021 09:47:35",
-      createdBy: "Nguyễn Hoàng Huy",
-      disabled: true,
-    },
-    {
-      key: "2",
-      accountName: "PC 540A QM1013 VB01",
-      apply: true,
-      createdAt: "16-03-2021 09:47:35",
-      createdBy: "Nguyễn Hoàng Huy",
-    },
-  ];
+  const data = accountState.accounts.map((account) => ({
+    key: account.id,
+    accountName: account.name,
+    apply: true,
+    createdAt: "16-03-2021 09:47:35",
+    createdBy: "Nguyễn Hoàng Huy",
+    disabled: false,
+  }));
 
   return (
     <div className="wrapper declare">
@@ -87,7 +87,8 @@ export const Account = () => {
             <Flex align="normal" className="table-filter-common" gap={8}>
               <DatePicker.RangePicker
                 className="table-filter-common-item"
-                defaultValue={[dayjs(), dayjs().add(1, "month")]}
+                defaultValue={[dayjs().subtract(1, "month"), dayjs()]}
+                disabledDate={(current) => current > dayjs()}
                 format="D/M/YYYY"
                 placeholder={["Bắt đầu", "Kết thúc"]}
                 prefix={
@@ -117,6 +118,7 @@ export const Account = () => {
             <Table
               columns={tableColumns}
               dataSource={data}
+              loading={accountState.loading}
               locale={{
                 emptyText: <Empty description={"Không tìm thấy dữ liệu"} image={Empty.PRESENTED_IMAGE_SIMPLE} />,
               }}
