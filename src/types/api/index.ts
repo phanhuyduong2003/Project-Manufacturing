@@ -20,3 +20,76 @@ export interface DataUpdateAccount {
   createdFormulas: unknown[];
   approvedFormulas: unknown[];
 }
+
+export interface DataCreateAccount {
+  role: string;
+  username: string;
+  name: string;
+  password: string;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  status: boolean;
+  createdAt: string;
+  createdById: number;
+  createdBy: Account;
+  typeId: number;
+  type: Category;
+}
+
+export interface DataCreateProduct {
+  name: string;
+  status: boolean;
+  typeId: number;
+  createdAt: string;
+  createdById: number;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  products: Product[];
+}
+
+export interface DataCreateCategory {
+  name: string;
+}
+
+export interface DataUpdateCategory {
+  id: number;
+  name: string;
+}
+
+export interface Material {
+  id: number;
+  name: string;
+  formulaMaterials: [];
+}
+
+export interface DataCreateMaterial {
+  name: string;
+}
+
+export interface DataUpdateMaterial {
+  id: number;
+  name: string;
+  formulaMaterials: [];
+}
+
+export interface Unit {
+  id: number;
+  name: string;
+  formulaMaterials: [];
+}
+
+export interface DataCreateUnit {
+  name: string;
+}
+
+export interface DataUpdateUnit {
+  id: number;
+  name: string;
+  formulaMaterials: [];
+}
