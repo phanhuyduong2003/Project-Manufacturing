@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { accountApi } from "@/api/accountApi";
-import { Account, DataUpdateAccount } from "@/types/api";
+import { Account, DataCreateAccount, DataUpdateAccount } from "@/types/api";
 
 interface AccountState {
   loading: boolean;
@@ -22,12 +22,12 @@ export const getAccountById = createAsyncThunk<Account, number>("account/getAcco
   const response = await accountApi.getAccountById(id);
   return response;
 });
-export const createAccount = createAsyncThunk<Account, Account>("account/createAccount", async (account) => {
+export const createAccount = createAsyncThunk<Account, DataCreateAccount>("account/createAccount", async (account) => {
   const response = await accountApi.createAccount(account);
   return response;
 });
 export const updateAccount = createAsyncThunk<Account, DataUpdateAccount>("account/updateAccount", async (account) => {
-  const response = await accountApi.updateAccount(account.id, account);
+  const response = await accountApi.updateAccount(account);
   return response;
 });
 

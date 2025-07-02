@@ -1,15 +1,13 @@
 import { DatePicker, Empty, Flex, Input, Select, Switch, Table, TableProps } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import dayjs from "dayjs";
-import { useState } from "react";
 import { generatePath, Link } from "react-router";
 
 import { Pencil, Search } from "@/assets/icons";
 import paths from "@/config/paths";
+import { TableProductProps } from "@/types/common";
 
-export const TableProduct = () => {
-  const [hasData, setHasData] = useState<boolean>(true);
-
+export const TableProduct = ({ ...props }: TableProductProps) => {
   const formulaStatus: DefaultOptionType[] = [
     {
       label: "Chờ duyệt",
@@ -26,19 +24,20 @@ export const TableProduct = () => {
   const tableColumns: TableProps["columns"] = [
     {
       title: "Mã sản phẩm",
-      dataIndex: "productCode",
-      key: "productCode",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Áp dụng",
-      dataIndex: "apply",
-      key: "apply",
+      dataIndex: "status",
+      key: "status",
       render: (text) => <Switch checked={text} />,
     },
     {
       title: "Thời gian tạo",
       dataIndex: "createdAt",
       key: "createdAt",
+      render: (text) => dayjs(text + "Z").format("DD-MM-YYYY HH:mm:ss"),
     },
     {
       title: "Người tạo",
@@ -47,36 +46,16 @@ export const TableProduct = () => {
       render: (text, record) => (
         <Flex justify="space-between">
           <span>{text}</span>
-          <Link state={{ data: record }} to={generatePath(paths.productDetail, { id: record.key })}>
+          <Link state={{ data: record }} to={generatePath(paths.productDetail, { id: record.id })}>
             <Pencil />
           </Link>
         </Flex>
       ),
     },
   ];
-  const data = [
-    {
-      key: "1",
-      productCode: "PC 540A QM1013 VB01",
-      apply: false,
-      createdAt: "16-03-2021 09:47:35",
-      createdBy: "Nguyễn Hoàng Huy",
-    },
-    {
-      key: "2",
-      productCode: "PC 540A QM1013 VB01",
-      apply: true,
-      createdAt: "16-03-2021 09:47:35",
-      createdBy: "Nguyễn Hoàng Huy",
-    },
-  ];
 
   return (
     <Flex className="table-common" gap={6} vertical>
-      <Flex gap={10}>
-        <span>Có dữ liệu: </span>
-        <Switch onChange={() => setHasData(!hasData)} value={hasData} />
-      </Flex>
       <Flex align="normal" className="table-filter-common" gap={8}>
         <DatePicker.RangePicker
           className="table-filter-common-item"
@@ -111,8 +90,9 @@ export const TableProduct = () => {
       </Flex>
       <Table
         columns={tableColumns}
-        dataSource={hasData ? data : []}
+        dataSource={props.data}
         locale={{ emptyText: <Empty description={"Không tìm thấy dữ liệu"} image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
+        rowKey={(record) => record.id}
       />
     </Flex>
   );

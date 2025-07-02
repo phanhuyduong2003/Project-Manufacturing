@@ -1,29 +1,75 @@
-import { Button, Flex, Form, Input, Radio, Select, Table, TableProps, Tabs, TabsProps, Tag } from "antd";
+import { Button, Flex, Form, Input, Radio, Select, Skeleton, Table, TableProps, Tabs, TabsProps, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { generatePath, Link, useNavigate } from "react-router";
 
 import { Pencil, Search } from "@/assets/icons";
 import { Header } from "@/components/Header";
 import paths from "@/config/paths";
+import { useShowMessage } from "@/hooks/useShowMessage";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getCategories } from "@/redux/slices/declareSlice";
+import { createProduct, getProductById } from "@/redux/slices/productSlice";
+import { ValuesFormProduct } from "@/types/common";
 
 export const FormProduct = ({ isEdit = false }: { isEdit?: boolean }) => {
   const [form] = Form.useForm();
-  const { data } = useLocation().state || {};
+  const message = useShowMessage();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const productState = useAppSelector((state) => state.product);
+  const declareState = useAppSelector((state) => state.declare);
+  const productID = Number(window.location.pathname.split("/").pop());
 
   useEffect(() => {
-    if (isEdit && data) {
+    if (isEdit && productID) {
+      dispatch(getProductById(productID));
+    }
+    dispatch(getCategories());
+  }, [dispatch, isEdit, productID]);
+  useEffect(() => {
+    if (isEdit && productState.productDetail) {
       form.setFieldsValue({
-        productStatus: 1,
-        createdDate: dayjs(data?.createdAt, "DD-MM-YYYY HH:mm:ss").format("DD/MM/YYYY"),
-        createdBy: data?.createdBy,
-        productCode: data?.productCode,
-        productName: "Sản phẩm mẫu",
-        productType: "Loại sản phẩm 1",
-        productQuantity: 100,
+        status: productState.productDetail.status,
+        code: productState.productDetail.name,
+        name: productState.productDetail.name,
+        typeId: productState.productDetail.typeId,
+        createdAt: dayjs(productState.productDetail.createdAt).format("DD/MM/YYYY"),
+        quantity: declareState.categories.find((item) => item.id === productState.productDetail?.typeId)?.products
+          .length,
       });
     }
-  }, [form, isEdit, data]);
+  }, [form, isEdit, productState.productDetail, declareState.categories]);
+  useEffect(() => {
+    if (!isEdit) {
+      form.setFieldsValue({
+        createdAt: dayjs().format("DD/MM/YYYY"),
+        createdBy: "Phan Huy Dương",
+      });
+    }
+  });
+
+  const handleCreateProduct = async (values: ValuesFormProduct) => {
+    console.log(values);
+    const data = {
+      status: values.status,
+      name: values.code,
+      typeId: values.typeId,
+      createdAt: dayjs().toISOString(),
+      createdById: 9,
+    };
+    const response = await dispatch(createProduct(data));
+    if (createProduct.fulfilled.match(response)) {
+      message.success("Tạo sản phẩm thành công");
+      form.resetFields();
+      setTimeout(() => {
+        navigate(generatePath(paths.productDetail, { id: response.payload.id }));
+      }, 1000);
+    }
+    if (createProduct.rejected.match(response)) {
+      message.error("Tạo sản phẩm thất bại");
+    }
+  };
 
   const statusTags = {
     approved: {
@@ -164,52 +210,69 @@ export const FormProduct = ({ isEdit = false }: { isEdit?: boolean }) => {
       label: "Chi tiết mã sản phẩm",
       children: (
         <>
-          <Form
-            form={form}
-            initialValues={{ productStatus: 1, createdDate: dayjs().format("DD/MM/YYYY"), createdBy: "Nguyễn Văn A" }}
-            layout="vertical"
-          >
-            <Form.Item label="Trạng thái sản phẩm" name="productStatus" rules={[{ required: true }]}>
-              <Radio.Group
-                options={[
-                  { value: 1, label: "Áp dụng" },
-                  { value: 2, label: "Không áp dụng" },
-                ]}
-              />
-            </Form.Item>
-            <Flex gap={10}>
-              <Form.Item label="Mã sản phẩm" name="productCode" rules={[{ required: true }]} style={{ flex: 1 }}>
-                <Input size="large" />
+          {productState?.loadingDetail ? (
+            <Skeleton active />
+          ) : (
+            <Form form={form} layout="vertical" name="form-product" onFinish={handleCreateProduct}>
+              <Form.Item label="Trạng thái sản phẩm" name="status" rules={[{ required: true }]}>
+                <Radio.Group
+                  options={[
+                    { value: 1, label: "Áp dụng" },
+                    { value: 2, label: "Không áp dụng" },
+                  ]}
+                />
               </Form.Item>
-              <Form.Item label="Ngày tạo" name="createdDate">
-                <Input disabled size="large" />
+              <Flex gap={10}>
+                <Form.Item label="Mã sản phẩm" name="code" rules={[{ required: true }]} style={{ flex: 1 }}>
+                  <Input size="large" />
+                </Form.Item>
+                <Form.Item label="Ngày tạo" name="createdAt">
+                  <Input disabled size="large" />
+                </Form.Item>
+                <Form.Item label="Người tạo" name="createdBy">
+                  <Input disabled size="large" />
+                </Form.Item>
+              </Flex>
+              <Form.Item label="Tên sản phẩm" name="name">
+                <Input placeholder="Nhập tên, mô tả sản phẩm" size="large" />
               </Form.Item>
-              <Form.Item label="Người tạo" name="createdBy">
-                <Input disabled size="large" />
-              </Form.Item>
-            </Flex>
-            <Form.Item label="Tên sản phẩm" name="productName">
-              <Input placeholder="Nhập tên, mô tả sản phẩm" size="large" />
-            </Form.Item>
-            <Flex gap={10}>
-              <Form.Item label="Loại sản phẩm" name="productType" style={{ flex: 0.5 }}>
-                <Select placeholder="Chọn loại sản phẩm" size="large" />
-              </Form.Item>
-              <Form.Item label="Số sản phẩm đã duyệt" name="productQuantity" style={{ flex: 1 }}>
-                <Input disabled size="large" />
-              </Form.Item>
-            </Flex>
-          </Form>
+              <Flex gap={10}>
+                <Form.Item label="Loại sản phẩm" name="typeId" style={{ flex: 0.5 }}>
+                  <Select
+                    onSelect={(value) =>
+                      form.setFieldValue(
+                        "quantity",
+                        declareState.categories.find((item) => item.id === value)?.products.length || 0,
+                      )
+                    }
+                    options={declareState.categories.map((item) => ({ label: item.name, value: item.id }))}
+                    placeholder="Chọn loại sản phẩm"
+                    size="large"
+                  />
+                </Form.Item>
+                <Form.Item label="Số sản phẩm đã duyệt" name="quantity" style={{ flex: 1 }}>
+                  <Input disabled size="large" />
+                </Form.Item>
+              </Flex>
+            </Form>
+          )}
           <div className="product-form-footer">
             <Flex gap={12} justify="end">
-              <Button className="btn-secondary" color="default" size="large" variant="filled">
-                Hủy
-              </Button>
               <Link to={paths.product}>
-                <Button className="btn-primary" size="large" type="primary">
-                  Lưu
+                <Button className="btn-secondary" color="default" size="large" variant="filled">
+                  Hủy
                 </Button>
               </Link>
+              <Button
+                className="btn-primary"
+                form="form-product"
+                htmlType="submit"
+                loading={productState.loading}
+                size="large"
+                type="primary"
+              >
+                Lưu
+              </Button>
             </Flex>
           </div>
         </>
@@ -242,13 +305,14 @@ export const FormProduct = ({ isEdit = false }: { isEdit?: boolean }) => {
           />
         </Flex>
       ),
+      disabled: !isEdit,
     },
   ];
 
   return (
     <div className="wrapper product-form">
       <div className="content">
-        <Header title="Chi tiết sản phẩm" />
+        <Header title={isEdit ? "Chi tiết sản phẩm" : "Tạo sản phẩm"} />
         <Tabs className="product-form-tab" items={productTabItems} />
       </div>
     </div>

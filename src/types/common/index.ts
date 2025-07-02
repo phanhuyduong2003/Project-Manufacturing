@@ -1,5 +1,7 @@
 import { ReactNode, SVGProps } from "react";
 
+import { Product } from "@/types/api";
+
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
   viewBox?: string;
@@ -21,6 +23,10 @@ export interface EmptyProps {
   buttonText: string;
 }
 
+export interface TableProductProps {
+  data: Product[];
+}
+
 export interface ValuesFormAccount {
   status: "apply" | "not_apply";
   role: string[];
@@ -28,4 +34,35 @@ export interface ValuesFormAccount {
   name: string;
   email: string;
   password: string;
+}
+
+export interface ValuesFormCategory {
+  status: "apply" | "not_apply";
+  name: string;
+}
+
+export interface ValuesFormProduct {
+  status: boolean;
+  code: string;
+  typeId: number;
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface ValuesFormMaterial {
+  status: "apply" | "not_apply";
+  name: string;
+  unit: string;
+  description: string;
+}
+
+export interface ValuesFormCreateUnit {
+  unit: string;
+  description: string;
+}
+
+export interface ValuesFormUpdateUnit {
+  id: number;
+  unit: string;
+  description: string;
 }

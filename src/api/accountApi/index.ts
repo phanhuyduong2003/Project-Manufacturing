@@ -1,5 +1,5 @@
 import axiosClient from "@/api/axiosClient";
-import { Account } from "@/types/api";
+import { Account, DataCreateAccount, DataUpdateAccount } from "@/types/api";
 
 export const accountApi = {
   async getAccounts(): Promise<Account[]> {
@@ -10,12 +10,12 @@ export const accountApi = {
     const url = `/Employee/${id}`;
     return axiosClient.get(url);
   },
-  async createAccount(account: Account): Promise<Account> {
+  async createAccount(data: DataCreateAccount): Promise<Account> {
     const url = "/Employee";
-    return axiosClient.post(url, account);
+    return axiosClient.post(url, data);
   },
-  async updateAccount(id: number, account: Account): Promise<Account> {
-    const url = `/Employee/${id}`;
-    return axiosClient.put(url, account);
+  async updateAccount(data: DataUpdateAccount): Promise<Account> {
+    const url = `/Employee/${data.id}`;
+    return axiosClient.put(url, data);
   },
 };
