@@ -28,12 +28,6 @@ export default defineConfig({
       protocol: "ws",
     },
     port: 3000,
-    proxy: {
-      "/api": {
-        target: "http://anam.runasp.net",
-        changeOrigin: true,
-      },
-    },
     watch: {
       usePolling: true,
     },

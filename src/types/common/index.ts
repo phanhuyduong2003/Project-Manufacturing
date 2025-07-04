@@ -1,5 +1,7 @@
+import { FormInstance } from "antd";
 import { ReactNode, SVGProps } from "react";
 
+import { RootState } from "@/redux/store";
 import { Product } from "@/types/api";
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
@@ -25,6 +27,31 @@ export interface EmptyProps {
 
 export interface TableProductProps {
   data: Product[];
+}
+
+export interface ProductTabProps {
+  form: FormInstance;
+  declareState: RootState["declare"];
+}
+
+export interface FormulaTabProps {
+  disabledFormula: boolean;
+  setActiveTab: (key: string) => void;
+}
+
+export interface FormulaDetailTabProps {
+  setOpenMaterial: (state: boolean) => void;
+  setOpenConfirm: (state: boolean) => void;
+  setOpenFormula: (state: boolean) => void;
+}
+
+export interface ApprovedHistoryTabProps {
+  setOpenNote: (state: boolean) => void;
+}
+
+export interface ModalCommonProps {
+  open: boolean;
+  setOpen: (state: boolean) => void;
 }
 
 export interface ValuesFormAccount {
