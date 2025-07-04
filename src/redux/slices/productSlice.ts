@@ -1,19 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { productApi } from "@/api/productApi";
-import { DataCreateProduct, Product } from "@/types/api";
+import { DataCreateProduct, Formula, FormulaMaterial, Product } from "@/types/api";
 
 interface ProductState {
   loading: boolean;
   loadingDetail: boolean;
   products: Product[];
   productDetail: Product | null;
+  formulas: Formula[];
+  formulaMaterials: FormulaMaterial[];
 }
 const initialState: ProductState = {
   loading: false,
   loadingDetail: false,
   products: [],
   productDetail: null,
+  formulas: [],
+  formulaMaterials: [],
 };
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
@@ -26,6 +30,14 @@ export const getProductById = createAsyncThunk("product/getProductById", async (
 });
 export const createProduct = createAsyncThunk("product/createProduct", async (data: DataCreateProduct) => {
   const response = await productApi.createProduct(data);
+  return response;
+});
+export const getFormulas = createAsyncThunk("product/getFormulas", async () => {
+  const response = await productApi.getFormulas();
+  return response;
+});
+export const getFormulaMaterials = createAsyncThunk("product/getFormulaMaterials", async () => {
+  const response = await productApi.getFormulaMaterials();
   return response;
 });
 
@@ -63,6 +75,26 @@ const productSlice = createSlice({
         state.products.push(action.payload);
       })
       .addCase(createProduct.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getFormulas.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getFormulas.fulfilled, (state, action) => {
+        state.loading = false;
+        state.formulas = action.payload;
+      })
+      .addCase(getFormulas.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getFormulaMaterials.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getFormulaMaterials.fulfilled, (state, action) => {
+        state.loading = false;
+        state.formulaMaterials = action.payload;
+      })
+      .addCase(getFormulaMaterials.rejected, (state) => {
         state.loading = false;
       });
   },

@@ -47,6 +47,30 @@ export interface DataCreateProduct {
   createdById: number;
 }
 
+export interface Formula {
+  id: number;
+  name: string;
+  createdAt: string;
+  productId: number;
+  product: Product;
+  createdById: number;
+  createdBy: Account;
+  approvedById: number;
+  approvedBy: Account;
+  formulaMaterials: FormulaMaterial[];
+  formulaProperties: [];
+}
+
+export interface FormulaMaterial {
+  formulaId: number;
+  formula: Formula;
+  materialId: number;
+  material: Material;
+  quantity: number;
+  unitId: number;
+  unit: Unit;
+}
+
 export interface Category {
   id: number;
   name: string;
